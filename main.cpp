@@ -8,6 +8,7 @@ int main()
     Board board;
     sf::RenderWindow window(sf::VideoMode(400, 400), "TetrisGameSFML");
     window.setFramerateLimit(60);
+    board.GenerateTetromino();
 
     // run the program as long as the window is open
     while (window.isOpen())
