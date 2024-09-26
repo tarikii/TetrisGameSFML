@@ -79,6 +79,76 @@ bool Board::GenerateTetromino()
 	return true;
 }
 
+bool Board::UpdateBoard() 
+{
+	bool limit = 0;
+	int counter = 0;
+
+	if (timer >= limitTimer) 
+	{
+		counter = 0;
+		for (int i = 18; i >= 0; i--) 
+		{
+			for (int j = 0; j < 10; j++) 
+			{
+				if (board[i][j] == -1) 
+				{
+					if (board[i + 1][j] <= 0)
+						counter++;
+				}
+			}
+		}
+
+		if (counter == 4) 
+		{
+			coordY++;
+			for (int i = 18; i >= 0; i--)
+			{
+				for (int j = 0; j < 10; j++)
+				{
+					if (board[i][j] == -1)
+					{
+						board[i][j] = 0;
+						board[i + 1][j] = -1;
+					}
+				}
+			}
+			counter = 0;
+			for (int i = 18; i >= 0; i--)
+			{
+				for (int j = 0; j < 10; j++)
+				{
+					if (board[i][j] == -1)
+					{
+						if (board[i + 1][j] <= 0)
+							counter++;
+					}
+				}
+			}
+
+			if (counter != 4) 
+			{
+				for (int i = 19; i >= 0; i--) 
+				{
+					for (int j = 0; j < 10; j++) 
+					{
+						if (board[i][j] == -1)
+							board[i][j] = indexColorNewTetromino;
+					}
+				}
+				limit = 1;
+			}
+		}
+		else
+			limit = 1;
+
+		timer = 0;
+	}
+
+	timer++;
+	return limit;
+}
+
 
 void Board::UpdateBoardColors()
 {

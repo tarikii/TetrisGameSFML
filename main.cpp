@@ -19,6 +19,7 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        board.UpdateBoard();
         board.UpdateBoardColors();
         window.clear(sf::Color(20, 20, 20));
         window.draw(board);

@@ -18,11 +18,15 @@ private:
 	int coordX;
 	int coordY;
 
+	int timer = 0;
+	int limitTimer = 30;
+
 	int board[20][10];
 	sf::RectangleShape boardShapes[20][10];
 public:
 	Board();
 	bool GenerateTetromino();
+	bool UpdateBoard();
 	void UpdateBoardColors();
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 
