@@ -113,35 +113,20 @@ bool Board::UpdateBoard()
 					}
 				}
 			}
-			counter = 0;
-			for (int i = 18; i >= 0; i--)
+		}
+		else
+		{
+			for (int i = 19; i >= 0; i--)
 			{
 				for (int j = 0; j < 10; j++)
 				{
 					if (board[i][j] == -1)
-					{
-						if (board[i + 1][j] <= 0)
-							counter++;
-					}
+						board[i][j] = indexColorNewTetromino;
 				}
 			}
-
-			if (counter != 4) 
-			{
-				for (int i = 19; i >= 0; i--) 
-				{
-					for (int j = 0; j < 10; j++) 
-					{
-						if (board[i][j] == -1)
-							board[i][j] = indexColorNewTetromino;
-					}
-				}
-				limit = 1;
-			}
-		}
-		else
 			limit = 1;
-
+		}
+			
 		timer = 0;
 	}
 
@@ -193,6 +178,11 @@ void Board::UpdateBoardColors()
 			}
 		}
 	}
+}
+
+void Board::UpdateLimitTimer(int limitT) 
+{
+	limitTimer = limitT;
 }
 
 

@@ -19,6 +19,12 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            board.UpdateLimitTimer(5);
+        else
+            board.UpdateLimitTimer(30);
+
         if (board.UpdateBoard())
             if (!board.GenerateTetromino())
                 window.close();

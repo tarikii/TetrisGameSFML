@@ -28,6 +28,7 @@ public:
 	bool GenerateTetromino();
 	bool UpdateBoard();
 	void UpdateBoardColors();
+	void UpdateLimitTimer(int limitT);
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 
 };
