@@ -185,6 +185,44 @@ void Board::UpdateLimitTimer(int limitT)
 	limitTimer = limitT;
 }
 
+void Board::RotateTetromino() 
+{
+	tetromino.RotateTetromino(indexNewTetromino);
+	std::vector<std::vector<bool>> tetrominoPiece = tetromino.ConsultTetromino(indexNewTetromino);
+
+	int size = (int)tetrominoPiece.size();
+
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			if (tetrominoPiece[i][j])
+			{
+				if (coordY + i < 0 || coordY + i >= 20 || coordX + j < 0 || coordX + j >= 9 || board[coordY + i][coordX + j] > 0)
+					return;
+			}
+		}
+	}
+
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			if (board[i][j] == -1)
+				board[i][j] = 0;
+		}
+	}
+
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < size; j++)
+		{
+			if (tetrominoPiece[i][j])
+				board[coordY + i][coordX + j] = -1;
+		}
+	}
+}
+
 void Board::Right() 
 {
 	int counter = 0;

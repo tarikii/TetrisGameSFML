@@ -12,6 +12,7 @@ int main()
 
     int rightDelay = 0;  // Delay counter for right movement
     int leftDelay = 0;   // Delay counter for left movement
+    int up = 0;
 
     const int moveDelay = 7;  // Delay between repeated movements
 
@@ -24,6 +25,14 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && !up)
+        {
+            board.RotateTetromino();
+            up = 1;
+        }
+        else if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            up = 0;
 
         // Check if down key is pressed (fast drop)
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
