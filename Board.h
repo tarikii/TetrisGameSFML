@@ -29,6 +29,8 @@ public:
 	bool UpdateBoard();
 	void UpdateBoardColors();
 	void UpdateLimitTimer(int limitT);
+	void Right();
+	void Left();
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 
 };

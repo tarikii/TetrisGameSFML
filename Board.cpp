@@ -185,6 +185,74 @@ void Board::UpdateLimitTimer(int limitT)
 	limitTimer = limitT;
 }
 
+void Board::Right() 
+{
+	int counter = 0;
+
+	for (int i = 0; i < 20; i++) 
+	{
+		for (int j = 0; j < 9; j++) 
+		{
+			if (board[i][j] == -1) 
+			{
+				if (board[i][j + 1] <= 0)
+					counter++;
+			}
+		}
+	}
+
+	if (counter == 4) 
+	{
+		coordX++;
+
+		for (int i = 0; i < 20; i++) 
+		{
+			for (int j = 9; j >= 0; j--) 
+			{
+				if (board[i][j] == -1) 
+				{
+					board[i][j] = 0;
+					board[i][j + 1] = -1;
+				}
+			}
+		}
+	}
+}
+
+void Board::Left()
+{
+	int counter = 0;
+
+	for (int i = 0; i < 20; i++)
+	{
+		for (int j = 1; j < 10; j++) // Check from 1 instead of 0 to avoid out-of-bounds when checking j - 1
+		{
+			if (board[i][j] == -1)
+			{
+				if (board[i][j - 1] <= 0) // Check the space to the left
+					counter++;
+			}
+		}
+	}
+
+	if (counter == 4) // If all parts can move left
+	{
+		coordX--; // Move the piece left by decrementing X
+
+		for (int i = 0; i < 20; i++)
+		{
+			for (int j = 0; j < 10; j++) // Loop left to right to avoid overwriting prematurely
+			{
+				if (board[i][j] == -1)
+				{
+					board[i][j] = 0;         // Clear current position
+					board[i][j - 1] = -1;    // Move the piece to the left
+				}
+			}
+		}
+	}
+}
+
 
 void Board::draw(sf::RenderTarget& rt, sf::RenderStates rs) const 
 {
