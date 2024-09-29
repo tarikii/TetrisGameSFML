@@ -32,6 +32,7 @@ public:
 	void RotateTetromino();
 	void Right();
 	void Left();
+	int CheckLine();
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 
 };

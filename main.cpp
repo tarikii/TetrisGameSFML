@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Board.h"
 #include "SFML/Graphics.hpp"
+#include <fstream>
 
 int main()
 {
@@ -13,6 +14,9 @@ int main()
     int rightDelay = 0;  // Delay counter for right movement
     int leftDelay = 0;   // Delay counter for left movement
     int up = 0;
+
+    int score = 0;
+    int maxScore = 0;
 
     const int moveDelay = 7;  // Delay between repeated movements
 
@@ -72,6 +76,10 @@ int main()
                 window.close();
 
         board.UpdateBoardColors();
+
+        int newScore = board.CheckLine() * 5;
+        score += newScore;
+
         window.clear(sf::Color(20, 20, 20));
         window.draw(board);
         window.display();

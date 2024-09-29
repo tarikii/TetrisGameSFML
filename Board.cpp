@@ -292,6 +292,41 @@ void Board::Left()
 }
 
 
+int Board::CheckLine()
+{
+	int counter = 0;
+	int lines = 0;
+
+	for (int i = 19; i >= 0; i--)
+	{
+		counter = 0;
+		for (int j = 0; j < 10; j++)
+		{
+			if (board[i][j] > 0)
+				counter++;
+
+			if (lines > 0)
+			{
+				board[i + lines][j] = board[i][j];
+				board[i][j] = 0;
+			}
+
+		}
+
+		if (counter == 10)
+		{
+			for (int j = 0; j < 10; j++)
+			{
+				board[i][j] = 0;
+			}
+			lines++;
+		}
+	}
+
+	return lines;
+}
+
+
 void Board::draw(sf::RenderTarget& rt, sf::RenderStates rs) const 
 {
 	for (int i = 0; i < 20; i++) {
