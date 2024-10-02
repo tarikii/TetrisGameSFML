@@ -27,6 +27,9 @@
     <ClCompile Include="UserInterface.cpp">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="Sounds.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -38,6 +41,9 @@
     <ClInclude Include="UserInterface.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
+    <ClInclude Include="Sounds.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="maxScore.txt">
@@ -45,7 +51,7 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="fonts\arial.ttf">
+    <Font Include="..\..\..\Desktop\SuperPixel.ttf">
       <Filter>Archivos de recursos</Filter>
     </Font>
   </ItemGroup>

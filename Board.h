@@ -33,6 +33,7 @@ public:
 	void Right();
 	void Left();
 	int CheckLine();
+	void ClearBoard();
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 
 };

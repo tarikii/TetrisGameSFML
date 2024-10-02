@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Board.h"
 #include "UserInterface.h"
+#include "Sounds.h"
 #include "SFML/Graphics.hpp"
 #include <fstream>
 
@@ -9,6 +10,7 @@ int main()
     // create the window and the classes
     Board board;
     UserInterface userInterface;
+    Sounds sounds;
 
     sf::RenderWindow window(sf::VideoMode(400, 400), "TetrisGameSFML");
     window.setFramerateLimit(60);
@@ -21,7 +23,20 @@ int main()
     int maxScore = 0;
 
     std::ifstream in("resources/maxScore.txt");
-    in >> maxScore;
+    if (in.is_open()) {
+        if (in >> maxScore) {
+            std::cout << "Max score loaded: " << maxScore << std::endl;
+        }
+        else {
+            std::cout << "Error reading max score. Setting default value of 0." << std::endl;
+            maxScore = 0;  // Default to 0 if the file contains invalid data
+        }
+        in.close();
+    }
+    else {
+        std::cout << "Error opening maxScore.txt" << std::endl;
+    }
+
 
     userInterface.SetMaxScore(maxScore);
     userInterface.SetScore(score);
@@ -33,6 +48,8 @@ int main()
     // Generate the first tetromino and set the game live
     board.GenerateTetromino();
     live = 1; // Fix: Set the game to live after generating the first tetromino
+
+    sounds.PlayMusic();
 
     // run the program as long as the window is open
     while (window.isOpen())
@@ -92,14 +109,21 @@ int main()
                 if (!board.GenerateTetromino())
                 {
                     live = 0; // End the game if a new piece can't be generated
+                    board.ClearBoard();
+                    sounds.PauseMusic();
                     if (score > maxScore)
                     {
-                        userInterface.NewScore();
-                        std::ofstream out("maxScore.txt");
+                        userInterface.MaxScore();
+                        std::ofstream out("resources/maxScore.txt");
                         out << score;
+                        sounds.PlayNewRecord();
                     }
                     else
+                    {
                         userInterface.GameOver();
+                        sounds.PlayGameOver();
+                    }
+                        
                 }
             }
 
@@ -108,6 +132,9 @@ int main()
             int newScore = board.CheckLine() * 5;
             score += newScore;
             userInterface.SetScore(score);
+
+            if (newScore > 0)
+                sounds.PlayLine();
         }
 
         window.clear(sf::Color(20, 20, 20));

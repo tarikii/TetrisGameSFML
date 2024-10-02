@@ -20,6 +20,6 @@ public:
 	void SetScore(int score);
 	void SetMaxScore(int maxScore);
 	void GameOver();
-	void NewScore();
+	void MaxScore();
 	virtual void draw(sf::RenderTarget&, sf::RenderStates) const;
 };

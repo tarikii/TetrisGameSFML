@@ -326,6 +326,11 @@ int Board::CheckLine()
 	return lines;
 }
 
+void Board::ClearBoard()
+{
+	memset(board, 0, sizeof(board));
+}
+
 
 void Board::draw(sf::RenderTarget& rt, sf::RenderStates rs) const 
 {
