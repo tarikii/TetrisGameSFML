@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 
+// Header class of the tetromino, to consult a piece, rotate it or derotate it
 class Tetromino
 {
 private:

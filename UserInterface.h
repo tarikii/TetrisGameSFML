@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "Board.h"
 
+// Header class of the user interface, where it shows the information of the score and the max score
 class UserInterface : public sf::Drawable
 {
 private:
@@ -15,7 +16,7 @@ private:
 	sf::Text textBy;
 	sf::Text textGameOver;
 	sf::Text textNewScore;
-	bool newScore = 0;
+	bool newRecord = 0;
 	bool gameOver = 0;
 
 public:

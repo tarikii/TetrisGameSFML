@@ -5,6 +5,7 @@ Board::Board()
 	// Initalizes all the positions of the board to 0
 	memset(board, 0, sizeof(board));
 
+	// Creation of the board game
 	for (int i = 0; i < 20; i++) 
 	{
 		for (int j = 0; j < 10; j++) 
@@ -51,6 +52,7 @@ bool Board::GenerateTetromino()
 	int color = 1 + rand() % 7;
 	indexColorNewTetromino = color;
 
+	// add the colors for each tetromino piece
 	switch (color)
 	{
 	case 1:
@@ -79,47 +81,58 @@ bool Board::GenerateTetromino()
 
 bool Board::UpdateBoard() 
 {
+	// Initialize a boolean to track if a limit has been reached (1 if true, 0 if false)
 	bool limit = 0;
 	int counter = 0;
 
+	// Check if the timer has reached or exceeded the limit time for moving pieces down
 	if (timer >= limitTimer) 
 	{
 		counter = 0;
+
+		// Check each position on the board to see if a tetromino can move down
 		for (int i = 18; i >= 0; i--) 
 		{
 			for (int j = 0; j < 10; j++) 
 			{
 				if (board[i][j] == -1) 
 				{
+
+					// Check if the position directly below the tetromino is empty or out of bounds
 					if (board[i + 1][j] <= 0)
 						counter++;
 				}
 			}
 		}
 
+		// If all four parts of the tetromino can move down
 		if (counter == 4) 
 		{
 			coordY++;
+
+			// Update the board to reflect the movement of the tetromino
 			for (int i = 18; i >= 0; i--)
 			{
 				for (int j = 0; j < 10; j++)
 				{
 					if (board[i][j] == -1)
 					{
-						board[i][j] = 0;
-						board[i + 1][j] = -1;
+						board[i][j] = 0; // Clear the current position
+						board[i + 1][j] = -1; // Move the tetromino down to the position
 					}
 				}
 			}
 		}
 		else
 		{
+			// Lock the tetromino in its current position by setting its color
 			for (int i = 19; i >= 0; i--)
 			{
 				for (int j = 0; j < 10; j++)
 				{
+					// If the current position is part of the tetromino
 					if (board[i][j] == -1)
-						board[i][j] = indexColorNewTetromino;
+						board[i][j] = indexColorNewTetromino; // Set it to the color of the tetromino
 				}
 			}
 			limit = 1;
@@ -129,10 +142,11 @@ bool Board::UpdateBoard()
 	}
 
 	timer++;
-	return limit;
+	return limit; // Return the limit status (1 if the tetromino has settled, 0 otherwise)
 }
 
 
+// This method simulates the piece staying in the board, which basically we will fill it with the corresponding color of the tetromino 
 void Board::UpdateBoardColors()
 {
 	for (int i = 0; i < 20; i++)
@@ -185,38 +199,48 @@ void Board::UpdateLimitTimer(int limitT)
 
 void Board::RotateTetromino() 
 {
+	// Rotate the current tetromino using its own method
 	tetromino.RotateTetromino(indexNewTetromino);
+
+	// Retrieve the new orientation of the tetromino after rotation
 	std::vector<std::vector<bool>> tetrominoPiece = tetromino.ConsultTetromino(indexNewTetromino);
 
 	int size = (int)tetrominoPiece.size();
 
+	// Check if the new position after rotation is valid
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
 		{
+			// Check if the current cell of the tetromino is occupied
 			if (tetrominoPiece[i][j])
 			{
+
+				// Validate the new position (within bounds and not colliding with existing blocks)
 				if (coordY + i < 0 || coordY + i >= 20 || coordX + j < 0 || coordX + j >= 9 || board[coordY + i][coordX + j] > 0)
-					return;
+					return; // If invalid, exit the function without rotating
 			}
 		}
 	}
 
+	// Clear the current position of the tetromino on the board
 	for (int i = 0; i < 20; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
-			if (board[i][j] == -1)
-				board[i][j] = 0;
+			if (board[i][j] == -1) // Check for the current tetromino's position
+				board[i][j] = 0; // Clear it by setting it to 0 (empty)
 		}
 	}
 
+	// Place the rotated tetromino in its new position on the board
 	for (int i = 0; i < size; i++)
 	{
 		for (int j = 0; j < size; j++)
 		{
-			if (tetrominoPiece[i][j])
-				board[coordY + i][coordX + j] = -1;
+			// If the current position is part of the rotated tetromino
+			if (tetrominoPiece[i][j]) 
+				board[coordY + i][coordX + j] = -1; // Update the board to reflect the new position of the tetromino
 		}
 	}
 }
@@ -237,9 +261,9 @@ void Board::Right()
 		}
 	}
 
-	if (counter == 4) 
+	if (counter == 4) // If all parts can move right 
 	{
-		coordX++;
+		coordX++; // Move the piece right by incrementing X
 
 		for (int i = 0; i < 20; i++) 
 		{
@@ -247,8 +271,8 @@ void Board::Right()
 			{
 				if (board[i][j] == -1) 
 				{
-					board[i][j] = 0;
-					board[i][j + 1] = -1;
+					board[i][j] = 0; // Clear current position
+					board[i][j + 1] = -1; // Move the piece to the right
 				}
 			}
 		}
@@ -261,11 +285,11 @@ void Board::Left()
 
 	for (int i = 0; i < 20; i++)
 	{
-		for (int j = 1; j < 10; j++) // Check from 1 instead of 0 to avoid out-of-bounds when checking j - 1
+		for (int j = 1; j < 10; j++)
 		{
 			if (board[i][j] == -1)
 			{
-				if (board[i][j - 1] <= 0) // Check the space to the left
+				if (board[i][j - 1] <= 0)
 					counter++;
 			}
 		}
@@ -277,7 +301,7 @@ void Board::Left()
 
 		for (int i = 0; i < 20; i++)
 		{
-			for (int j = 0; j < 10; j++) // Loop left to right to avoid overwriting prematurely
+			for (int j = 0; j < 10; j++)
 			{
 				if (board[i][j] == -1)
 				{
@@ -290,6 +314,7 @@ void Board::Left()
 }
 
 
+// Method that checks if the line is full of tetromino colors, if it is, clear it 
 int Board::CheckLine()
 {
 	int counter = 0;
@@ -324,12 +349,13 @@ int Board::CheckLine()
 	return lines;
 }
 
+// Clear board method for when the user loses the game
 void Board::ClearBoard()
 {
 	memset(board, 0, sizeof(board));
 }
 
-
+// Method to draw all the board shapes
 void Board::draw(sf::RenderTarget& rt, sf::RenderStates rs) const 
 {
 	for (int i = 0; i < 20; i++) {

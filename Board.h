@@ -8,6 +8,7 @@
 #include "UserInterface.h"
 #include "Tetromino.h"
 
+// Header class of the board, that has the matrix for the board game, tetromino shapes, rectangle shape for the board.... 
 class Board : public sf::Drawable 
 {
 private:

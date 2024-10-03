@@ -3,6 +3,7 @@
 #include <iostream>
 #include "SFML/Audio.hpp"
 
+// Header class that deals with the music, sounds when something happens, and sound buffer
 class Sounds
 {
 private:

@@ -2,9 +2,11 @@
 
 UserInterface::UserInterface()
 {
+	// Load the font from a file; if it fails, print an error message
 	if (!font.loadFromFile("resources/SamuraiBlast.ttf"))
 		std::cout << "Error laoding the font text" << std::endl;
 
+	// Load the elements of the interface (score title, score, max score title, max score, by text) and set the font,colors,position...
 	textScoreTitle.setFont(font);
 	textScoreTitle.setFillColor(sf::Color::White);
 	textScoreTitle.setPosition(sf::Vector2f(265, 25));
@@ -44,6 +46,7 @@ UserInterface::UserInterface()
 	textNewScore.setCharacterSize(25);
 }
 
+// Format and set the score string based on its value
 void UserInterface::SetScore(int score)
 {
 	if (score <= 9)
@@ -58,6 +61,7 @@ void UserInterface::SetScore(int score)
 		textScore.setString("9999");  // Limit score display to 9999
 }
 
+// Format and set the max score string based on its value
 void UserInterface::SetMaxScore(int maxScore)
 {
 	if (maxScore <= 9)
@@ -72,18 +76,20 @@ void UserInterface::SetMaxScore(int maxScore)
 		textMaxScore.setString("9999");  // Limit max score display to 9999
 }
 
-
+// Set the game over flag to true
 void UserInterface::GameOver()
 {
 	gameOver = 1;
 }
 
+// Set the new record flag to true
 void UserInterface::MaxScore()
 {
-	newScore = 1;
+	newRecord = 1;
 }
 
 
+// Draw all the elements that were composed before for the interface
 void UserInterface::draw(sf::RenderTarget& rt, sf::RenderStates rs) const
 {
 	rt.draw(textScoreTitle, rs);
@@ -92,9 +98,10 @@ void UserInterface::draw(sf::RenderTarget& rt, sf::RenderStates rs) const
 	rt.draw(textMaxScore, rs);
 	rt.draw(textBy, rs);
 
+	// Draw game over or new record messages if the flags are set
 	if (gameOver)
 		rt.draw(textGameOver, rs);
 
-	if (newScore)
+	if (newRecord)
 		rt.draw(textNewScore, rs);
 }
