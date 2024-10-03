@@ -1,6 +1,6 @@
 #include "Tetromino.h"
 
-Tetromino::Tetromino() 
+Tetromino::Tetromino()
 {
 	tetromino = { {{1,1},
 			 {1,1}},
@@ -42,20 +42,20 @@ Tetromino::Tetromino()
 }
 
 
-std::vector<std::vector<bool>> Tetromino::ConsultTetromino(int index) 
+std::vector<std::vector<bool>> Tetromino::ConsultTetromino(int index)
 {
 	return tetromino[index];
 }
 
 
-void Tetromino::RotateTetromino(int index) 
+void Tetromino::RotateTetromino(int index)
 {
 	std::vector<std::vector<bool>> auxiliarTetromino = tetromino[index];
 	int indexI = 0, indexJ = 0;
 	int tetrominoSize = (int)tetromino[index].size();
-	for (int i = 0; i < tetrominoSize; i++) 
+	for (int i = 0; i < tetrominoSize; i++)
 	{
-		for (int j = tetrominoSize - 1; j >= 0; j--) 
+		for (int j = tetrominoSize - 1; j >= 0; j--)
 		{
 			tetromino[index][indexI][indexJ] = auxiliarTetromino[j][i];
 			indexJ++;
@@ -65,14 +65,14 @@ void Tetromino::RotateTetromino(int index)
 	}
 }
 
-void Tetromino::DerotateTetromino(int index) 
+void Tetromino::DerotateTetromino(int index)
 {
 	std::vector<std::vector<bool>> auxiliarTetromino = tetromino[index];
 	int indexI = 0, indexJ = 0;
 	int tetrominoSize = (int)tetromino[index].size();
-	for (int i = tetrominoSize - 1; i >= 0; i--) 
+	for (int i = tetrominoSize - 1; i >= 0; i--)
 	{
-		for (int j = 0; j < tetrominoSize; j++) 
+		for (int j = 0; j < tetrominoSize; j++)
 		{
 			tetromino[index][indexI][indexJ] = auxiliarTetromino[j][i];
 			indexJ++;

@@ -1,7 +1,9 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
 
-class Tetromino 
+class Tetromino
 {
 private:
 	std::vector<std::vector<std::vector<bool>>> tetromino;
