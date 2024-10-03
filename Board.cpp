@@ -75,8 +75,6 @@ bool Board::GenerateTetromino()
 		newTetrominoColor = sf::Color(133, 194, 247); // Light Blue
 		break;
 	}
-
-	return true;
 }
 
 bool Board::UpdateBoard() 

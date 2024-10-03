@@ -5,6 +5,7 @@
 #include <cstring>
 #include <vector>
 #include <time.h>
+#include "UserInterface.h"
 #include "Tetromino.h"
 
 class Board : public sf::Drawable 
@@ -16,6 +17,9 @@ private:
 	int indexColorNewTetromino;
 
 	sf::Color newTetrominoColor;
+
+	std::vector<std::vector<bool>> nextTetrominoPiece; // Store the next tetromino shape
+	sf::Color nextTetrominoColor; // Store the color of the next tetromino
 
 	int coordX;
 	int coordY;
